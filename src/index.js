@@ -1,5 +1,3 @@
-// app.js
-
 import axios from 'axios';
 import Notiflix from 'notiflix';
 
@@ -7,9 +5,9 @@ const searchForm = document.getElementById('search-form');
 const gallery = document.querySelector('.gallery');
 const loadMoreButton = document.querySelector('.load-more');
 
-const apiKey = '39883816-7D1852F26E33BBB727BC03D19'; // Zastąp 'TWOJ_KLUCZ_API' swoim własnym kluczem API Pixabay.
-const perPage = 40; // Liczba obrazków na stronie.
-let currentPage = 1; // Aktualna strona wyników wyszukiwania.
+const apiKey = '39883816-7d1852f26e33bbb727bc03d19';
+const perPage = 40;
+let currentPage = 1;
 
 searchForm.addEventListener('submit', async e => {
   e.preventDefault();
@@ -20,8 +18,8 @@ searchForm.addEventListener('submit', async e => {
     return;
   }
 
-  currentPage = 1; // Zresetuj stronę przy nowym zapytaniu.
-  gallery.innerHTML = ''; // Wyczyść zawartość galerii.
+  currentPage = 1;
+  gallery.innerHTML = '';
 
   searchImages(searchQuery, currentPage);
 });
