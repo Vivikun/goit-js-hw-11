@@ -1,28 +1,127 @@
-.example {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  line-height: 1.5;
-  background-color: #fff;
-  color: #2f2f37;
-  max-width: 960px;
-  padding: 16px;
+// .example {
+//   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+//     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+//   line-height: 1.5;
+//   background-color: #fff;
+//   color: #2f2f37;
+//   max-width: 960px;
+//   padding: 16px;
+// }
+
+// .example code {
+//   font-family: monospace;
+//   font-size: 16px;
+//   font-weight: 700;
+//   background-color: #ff6b0a;
+//   color: #fff;
+//   padding: 2px 6px;
+//   border-radius: 2px;
+// }
+
+// .example .background {
+//   height: 240px;
+//   // ❗️❗️❗️ The path to images from a SASS file
+//   // is always the same as from the css folder.
+//   background-image: url('../images/logo.png');
+//   background-size: cover;
+//   background-position: center;
+// }
+/* Styl dla formularza wyszukiwania */
+.search-form {
+  text-align: center;
+  margin: 20px 0;
 }
 
-.example code {
-  font-family: monospace;
+.search-form input[type='text'] {
+  padding: 10px;
+  width: 300px;
+  border: 2px solid #007bff;
+  border-radius: 5px;
   font-size: 16px;
-  font-weight: 700;
-  background-color: #ff6b0a;
-  color: #fff;
-  padding: 2px 6px;
-  border-radius: 2px;
+  outline: none;
 }
 
-.example .background {
-  height: 240px;
-  // ❗️❗️❗️ The path to images from a SASS file
-  // is always the same as from the css folder.
-  background-image: url('../images/logo.png');
-  background-size: cover;
-  background-position: center;
+.search-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Styl dla galerii obrazków */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.photo-card {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.photo-card:hover {
+  transform: scale(1.05);
+}
+
+.photo-card img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s;
+}
+
+.photo-card img:hover {
+  transform: scale(1.1);
+}
+
+.info {
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.info-item {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+.photo-card {
+  /* ... */
+  position: relative;
+}
+
+.image-selector {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transform: scale(1.5);
+  cursor: pointer;
+  opacity: 0;
+  z-index: 1;
+}
+
+.image-selector:checked + .info::before {
+  content: 'Selected';
+  position: absolute;
+  top: -10px;
+  right: 0;
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 14px;
 }
