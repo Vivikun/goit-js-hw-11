@@ -31,11 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   loadMoreButton.addEventListener('click', () => {
     currentPage++;
-    searchAndDisplayImages(currentQuery, currentPage, perPage);
+    searchAndDisplayImages(currentQuery, currentPage);
   });
-  async function searchAndDisplayImages(query, page, perPage) {
+  async function searchAndDisplayImages(query, currentPage) {
     try {
-      const data = await searchImages(query, page);
+      const perPage = 40;
+      const data = await searchImages(query, currentPage);
       const { hits, totalHits } = data;
 
       if (hits.length === 0) {
@@ -44,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
         );
         return;
       }
-
       displayImages(hits);
 
       if (currentPage * perPage < totalHits) {
