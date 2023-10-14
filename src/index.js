@@ -33,33 +33,69 @@ document.addEventListener('DOMContentLoaded', function () {
     currentPage++;
     searchAndDisplayImages(currentQuery, currentPage);
   });
+
+  let notificationsShown = {
+    noImagesFound: false,
+    totalImages: false,
+    error: false,
+    totalResults: false,
+  };
+
   async function searchAndDisplayImages(query, currentPage) {
     try {
       const perPage = 40;
       const data = await searchImages(query, currentPage);
       const { hits, totalHits } = data;
 
-      if (hits.length === 0) {
+      if (hits.length === 0 && !notificationsShown.noImagesFound) {
         Notiflix.Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.'
         );
+        notificationsShown.noImagesFound = true; // Zmieniłem to na notificationsShown
         return;
       }
+
+      if (totalHits > 0 && !notificationsShown.totalImages) {
+        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+        notificationsShown.totalImages = true;
+      }
+
       displayImages(hits);
 
       if (currentPage * perPage < totalHits) {
         loadMoreButton.style.display = 'block';
       } else {
         loadMoreButton.style.display = 'none';
-        Notiflix.Notify.info(
-          "We're sorry, but you've reached the end of search results."
-        );
+        if (!notificationsShown.totalResults) {
+          Notiflix.Notify.info(
+            "We're sorry, but you've reached the end of search results."
+          );
+          notificationsShown.totalResults = true;
+        }
       }
     } catch (error) {
       console.error('Error fetching images:', error);
-      Notiflix.Notify.failure('An error occurred while fetching images.');
+      if (!notificationsShown.error) {
+        Notiflix.Notify.failure('An error occurred while fetching images.');
+        notificationsShown.error = true;
+      }
     }
   }
+
+  let isScrolling = false;
+
+  window.addEventListener('scroll', () => {
+    if (!isScrolling) {
+      isScrolling = true;
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        currentPage++;
+        searchAndDisplayImages(currentQuery, currentPage);
+      }
+
+      isScrolling = false;
+    }
+  });
+  window.addEventListener('scroll', handleScroll);
 
   function displayImages(images) {
     images.forEach(image => {
@@ -98,8 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
       photoCard.appendChild(info);
 
       gallery.appendChild(photoCard);
+      lightbox.refresh();
     });
-
-    lightbox.refresh();
   }
 });
